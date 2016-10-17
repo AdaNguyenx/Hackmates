@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load jsonify %}
+
+{% load static from staticfiles %}
+
+<li data-nf-id="{{ notification.id }}" id="nf-{{ notification.id }}"
+    class="notification list-group-item {{ notification.read|yesno:'read,unread' }}">
+    {% block notification %}
+        {% if notification.target %}
+            {{ notification.actor.first_name }} {{ notification.actor.last_name }}
+            {% blocktrans with  actor_url=notification.actor_url actor=notification.actor verb=notification.verb target=notification.target target_url=notification.target_url %}
+                {{ verb }}<a href="{{ target_url }}" target="_blank">
+                <div style="color:red;">{{ target }}</div>
+            </a>
+            {% endblocktrans %}
+        {% else %}
+            {{ notification.actor.first_name }} {{ notification.actor.last_name }}
+            {% blocktrans with actor_url=notification.actor_url actor=notification.actor verb=notification.verb %}
+               {{ verb }}
+            {% endblocktrans %}
+        {% endif %}
+        <span class="timesince">{% blocktrans with created=notification.created|timesince %}{{ created }}
+            ago{% endblocktrans %}</span>
+    {% endblock notification %}
+    <br>
+
+    <button style="color:white;"
+            data-id="{{ notification.id }}" class="mark-notification btn big-register"
+            data-sender="{{ notification.actor }}"
+            data-team="{{ notification.description }}"
+            data-mark-action="{{ notification.read|yesno:'unread,read' }}"
+            data-toggle-text="{% blocktrans with read=notification.read|yesno:_('read,unread') %}Mark as {{ read }}{% endblocktrans %}">
+        {% blocktrans with read=notification.read|yesno:_('unread,read') %} Accept {% endblocktrans %}
+    </button>
+
+    <button style="color:white;"
+            class="delete-notification btn btn-secondary" data-id="{{ notification.id }}">
+        Deny
+    </button>
+</li>

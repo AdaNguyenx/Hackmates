@@ -1,0 +1,176 @@
+{% load static from staticfiles %}
+
+<style>
+    .removeHackathon {
+        color: red;
+        cursor: pointer;
+        cursor: hand;
+    }
+
+    .removeHackathon:hover {
+        color: red;
+        text-decoration: none;
+    }
+</style>
+
+<div class="current-hackathons text-center">
+    <h3>Going to</h3>
+    <ul style="display:inline-block;">
+        {% if not user.userprofile.hackathons.all %}
+            <li><h4> None. Select hackathons you are going to below! </h4></li>
+        {% else %}
+            {% for user_hackathon in user.userprofile.hackathons.all %}
+                <li><h4>{{ user_hackathon }}
+                    <a class="removeHackathon" id="{{ user_hackathon.id }}"> X </a>
+                </h4>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+<hr>
+<h3 class="text-center">Browse</h3>
+
+
+<div id="hackathonDPanels">
+</div>
+
+<h4 class="text-center"> Don't see your hackathon? Submit a request to be added <a
+        href="https://hackerpack.typeform.com/to/qyvaam" target="_blank">here</a>! </h4>
+<h4 class="text-center"> Would like to customize your hackathon page? Drop us a line at hello@hackerpack.io! </h4>
+
+{% include 'home/index-logged-in/hackathons/hackmates-hackathonsTab-afterModal.html' %}
+
+{#<script src = {% static 'js/hackmates_hackathonsGoing.js' %}#}
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    var h_panel_div = document.getElementById("hackathonDPanels");
+    var h_count = 0;
+    var h_oldRow = document.createElement('div');
+    h_oldRow.className = 'row';
+    {% for hackathon in hackathons %}
+
+        var hack_imagesrc = "{% static '' %}";
+        hack_imagesrc += '../media/{{ hackathon.hackathon_image}}';
+
+        var hackathon_name = "{{ hackathon.title }}";
+        var hackathon_date = "{{ hackathon.start_date}}";
+        var hackathon_location = "{{ hackathon.city }}" + ", " + "{{ hackathon.state }}";
+
+        var h_id = "{{ hackathon.pk }}";
+
+        var DOWN_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/down-arrow.png";
+        var UP_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/up-arrow.png";
+
+        var idString = "id=" + h_id;
+        var tempString = "<div class='col-md-4'" + ">" +
+                "<div class='panel panel-default panel-cus center-block' onclick='changeHArrow("
+                + h_id + ")'" + idString + ">" +
+                "<div class='custom-panel center-block hacks-panels' data-toggle='collapse'" +
+                "data-target='#h_lower" + h_id + "'>" +
+                "<img src ='" + hack_imagesrc + "' class='img-responsive center-block user-image'>" +
+                "<div class = 'carousel-caption'>" +
+                "<h1>" + hackathon_name + "</h1>" +
+                "<p>" + hackathon_date + "</p>" +
+                "<p>" + hackathon_location + "</p>"
+                + '<img src = "' + DOWN_ARROW
+                + '" class="img-responsive center-block arrow-image" id ="h_arrow'
+                + h_id + '">'
+                + "</div>" + "</div>" + "<div class = 'text-center'" +
+                "<div id = 'h_lower" + h_id + "' class = 'collapse' style='padding:15px;'>" +
+                '<button class = "btn btn-primary big-register btn-circle btn-lg" id = "' + h_id +
+                '"' + 'data-toggle="tooltip" data-placement="left" title="I\'m going to this hackathon!"' +
+                ' onclick="getHackathonFunction(this.id);" style = "margin-right:20px;"> <i class="glyphicon glyphicon-ok"></i> </button>' +
+                '<a class = "btn big-register-outline btn-circle btn-lg" href = "{{ hackathon.website_url }}" target="_blank">' +
+                '<i class = "glyphicon glyphicon-link"></i> </a>' +
+                "</div>" + "</div>" + "</div>" + "</div>";
+
+        var newFeature = document.createElement('div');
+        newFeature.innerHTML = tempString;
+
+        if (h_count % 3 === 0) {
+            var newRow = document.createElement('div');
+            newRow.className = 'row';
+            h_panel_div.appendChild(newRow);
+            newRow.appendChild(newFeature);
+            h_oldRow = newRow;
+        }
+        else {
+            h_oldRow.appendChild(newFeature);
+        }
+        h_count++;
+
+    {% endfor %}
+
+
+    function changeHArrow(id) {
+        var DOWN_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/down-arrow.png";
+        var UP_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/up-arrow.png";
+
+        idPanel = String('#h_lower' + id);
+        idArrow = String('h_arrow' + id);
+
+        $(idPanel).on('shown.bs.collapse', function () {
+            document.getElementById(idArrow).src = UP_ARROW;
+        });
+        $(idPanel).on('hide.bs.collapse', function () {
+            document.getElementById(idArrow).src = DOWN_ARROW;
+        });
+    }
+    var csrfmiddlewaretoken = '{{ csrf_token }}';
+
+    function getHackathonFunction(id) {
+        var going_hackathon = {
+            goinghackathonform: 'goinghackathonform',
+            hackathon_id: id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: going_hackathon,
+            success: function (data) {
+                var message = JSON.stringify(data["message"]);
+                $(".afterHackathonBody").html(JSON.parse(message));
+                $(".afterHackathonTitle").html("Awesome!");
+                $(".afterHackathonModal").modal('show');
+            },
+            error: function (data) {
+                // $("#team_form").html("Something went wrong :( Please refresh the page and try again.");
+            }
+        });
+        return false;
+    }
+
+    $('.removeHackathon').click(function () {
+
+        var h_removed_hackathon = $(this).attr('id');
+        var h_remove_data = {
+            hackathon: h_removed_hackathon,
+            removehackathonform: 'removehackathonform',
+            csrfmiddlewaretoken: csrfmiddlewaretoken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: h_remove_data,
+            success: function (data) {
+                var message = JSON.stringify(data["hackathon"]);
+                $(".afterHackathonBody").html("You have been removed from " + JSON.parse(message));
+                $(".afterHackathonTitle").html("Hope to see you at another hackathon!");
+                $(".afterHackathonModal").modal('show');
+            }
+
+        });
+    });
+
+    $('.afterHackathonModal').on('hidden.bs.modal', function () {
+        location.reload();
+    });
+
+</script>

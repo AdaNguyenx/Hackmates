@@ -1,0 +1,188 @@
+{% extends 'basic/base.html' %}
+{% load static from staticfiles %}
+
+{% load account %}
+{% load socialaccount %}
+{% load bootstrap %}
+
+{% block content %}
+
+    {% include 'home/index-logged-in/hackmates-navbar.html' %}
+    <script>
+        var csrfmiddlewaretoken = '{{ csrf_token }}';
+    </script>
+    <script src="{% static 'js/hackmates-notifications.js' %}"></script>
+
+    <div class="container" style="padding-top: 60px;">
+        <h1 class="page-header"> {{ user.first_name }} {{ user.last_name }} </h1>
+        <div class="row">
+
+
+            <!-- left column -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="text-center">
+                    <img src="{% static '' %}../media/{{ profile.avatar }}"
+                         class="img-circle img-responsive center-block"
+                         alt="User Picture">
+                    <h6>Upload a different photo...</h6>
+                    {% csrf_token %}
+                    <div class="alert alert-error" style="color:red;">
+                        {{ form.avatar.errors }}
+                    </div>
+                    <input form="changeform" type="file" name="avatar"
+                           class="text-center center-block well well-sm">
+                </div>
+            </div>
+            <!-- edit form column -->
+            <div class="col-md-9 col-sm-6 col-xs-12 personal-info">
+
+                <form id="changeform" class="form-horizontal"
+                      action="{% url 'src:profile' %}" method="post"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            {#  Username #}
+                            <div class="form-group">
+                                <label class=" control-label">Username:</label>
+                                <div>
+                                    {{ user.username }}
+                                </div>
+                            </div>
+
+                            {#  Email #}
+                            <div class="form-group">
+                                <label class=" control-label">Email:</label>
+                                <div>
+                                    {{ user.email }}
+                            <span class="pull-right">
+                                <a href="/accounts/email/">
+                                    Looking to change your email?
+                                </a>
+                            </span>
+                                </div>
+
+                            </div>
+
+                            {# First name #}
+                            <div class="form-group">
+                                <label class=" control-label"> First name:</label>
+                                <div>
+                                    <input class=" form-control"
+                                           value="{{ user.first_name }}" type="text"
+                                           name="first_name"/>
+                                </div>
+                            </div>
+
+                            {# Last Name #}
+                            <div class="form-group">
+                                <label class=" control-label"> Last name:</label>
+                                <div>
+                                    <input class=" form-control"
+                                           value="{{ user.last_name }}" type="text"
+                                           name="last_name"/>
+                                </div>
+                            </div>
+
+                            {# About #}
+                            {{ form.about |bootstrap }}
+
+                            {# Ideas #}
+                            {{ form.ideas |bootstrap }}
+
+                            {# Location  #}
+                            <div class="form-group">
+                                <label class=" control-label"> Location:</label>
+                                <div>
+                                    <input class=" form-control"
+                                           value="{{ profile.city }}" type="text"
+                                           name="city"/>
+                                </div>
+                            </div>
+
+
+                            {# School  #}
+                            <div class="form-group">
+                                <label class=" control-label"> School:</label>
+                                <div>
+                                    <input class=" form-control"
+                                           value="{{ profile.school }}" type="text"
+                                           name="school"/>
+                                </div>
+                            </div>
+
+                            {# Major  #}
+                            <div class="form-group">
+                                <label class=" control-label"> Studies:</label>
+                                <div>
+                                    <input class=" form-control"
+                                           value="{{ profile.studies }}" type="text"
+                                           name="studies"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="col-md-4">
+
+
+                            {# Roles #}
+                            <div class="form-group">
+                                <label class=" control-label"> Your Role(s):</label>
+
+                                {% if not profile.roles.all %}
+
+                                    None. Select your role(s) below!
+
+                                {% else %}
+
+                                    {% for role in  profile.roles.all %}
+                                        {{ role }},
+                                    {% endfor %}
+
+                                {% endif %}
+                            </div>
+
+                            {{ form.roles | bootstrap }}
+
+                            {# Languages #}
+                            <div class="form-group">
+                                <label class=" control-label"> Your Language(s):</label>
+
+                                {% if not profile.languages.all %}
+
+                                    None. Select your language(s) below!
+
+                                {% else %}
+
+                                    {% for language in  profile.languages.all %}
+                                        {{ language }},
+                                    {% endfor %}
+
+                                {% endif %}
+                            </div>
+                            {{ form.languages | bootstrap }}
+
+                            {# Frameworks #}
+                            {{ form.frameworks | bootstrap }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <button type="submit" class="btn btn-success"> Save
+                            changes
+                        </button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    {% include 'basic/footer.html' %}
+
+
+{% endblock %}

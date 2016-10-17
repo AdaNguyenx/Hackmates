@@ -1,0 +1,215 @@
+{% load jsonify %}
+{% load static from staticfiles %}
+
+{#{% include 'home/hackmates-teamTab-createATeamModal.html' %}#}
+
+{# Modal success form #}
+<div class="modal fade" id="myModal2" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Which team would you like to invite this
+                    HackMate to? </h4>
+            </div>
+            <div class="modal-body myModal2">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{# Modal form #}
+<div class="modal fade" id="myModal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Which team would you like to invite this
+                    HackMate to? </h4>
+            </div>
+            <div class="modal-body">
+
+                {% if not user.teammember_set.all %}
+                    <div class="text-center">
+                        You do not have a team yet. Click on "My Teams" tab to create a new team!
+                    </div>
+                {% else %}
+                    <form action="{% url 'src:index' %}" method="post" id="post-form">
+                        {% csrf_token %}
+                        <div id="errorform" style="color:red;"> {{ invite_form.errors }}</div>
+                        {{ invite_form }}
+                        <input type="hidden" name="inviteform" value="inviteform">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary big-register" name="inviteform">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Where users are shown #}
+
+<button class="btn btn-primary center-block big-register filter-hackmates" id="menu-toggle"> Filter HackMates</button>
+
+<div id="users-panel"></div>
+<button class="btn btn-primary center-block btn-lg big-register" id="load"> See More HackMates</button>
+
+{# Script for dynamically creating the user panels on hackmates tab#}
+{#<script src="{% static 'js/hackmates-userPanel.js' %}"></script>#}
+<script>
+
+    {#  Hide/Show sidebar when button is clicked  #}
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $(".goBackArrow").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1562330974062551',
+            xfbml: true,
+            version: 'v2.4'
+        });
+
+        AfterFB();
+    };
+
+    function AfterFB() {
+        var csrfmiddlewaretoken = '{{ csrf_token }}';
+        var token = '{{ user.socialaccount_set.all.0.socialtoken_set.all.0 }}';
+
+        {# For hackmates tab  #}
+        var num = {{ count }};
+
+        // Function to create dynamic panels
+        var users_panel = document.getElementById('users-panel');
+        var count = 0;
+        var oldRow = document.createElement('div');
+        oldRow.className = 'row';
+
+        {% for user in users %}
+
+            if ('{{ user.socialaccount_set.all.0.uid }}') {
+                var fbuserid = '/' + '{{ user.socialaccount_set.all.0.uid }}';
+
+
+                FB.api(
+                        fbuserid, {
+                            "fields": "context.fields(mutual_friends)",
+                            "access_token": token
+                        },
+                        function (response) {
+                            if (response && !response.error) {
+                                console.log('{{ user.username }}');
+                                if (response['context']['mutual_friends']['summary']) {
+                                    console.log(response['context']['mutual_friends']['summary']['total_count']);
+                                }
+                            }
+                        });
+            }
+
+
+            var username = '{{ user.username }}';
+            var id = {{ user.id }};
+            var first_name = '{{ user.first_name }}';
+
+            var imagesrc = "{% static 'hackmates-hackmatesTab-fbCall.html' %}";
+            imagesrc += '../media/{{ user.userprofile.avatar}}';
+            var hackathons = [];
+
+            {% for hackathon in  user.userprofile.hackathons.all%}
+                hackathons.push('{{ hackathon }}');
+            {% endfor %}
+
+            var about = '{{ user.userprofile.about | linebreaksbr }}';
+            var city = '{{ user.userprofile.city }}';
+            var school = '{{ user.userprofile.school }}';
+            var studies = '{{ user.userprofile.studies }}';
+
+            {% if not user.userprofile.platform_choices %}
+                var interests = 'None';
+            {% else %}
+                interests = {{ user.userprofile.platform_choices | jsonify}};
+            {% endif %}
+
+
+            var html_hackathons = '<p> <b> Going to: </b> ' + hackathons.toString() + '</p>';
+            var html_about = '<p> <b> About: </b> ' + about + '</p>';
+            var html_city = '<p> <b> Location: </b> ' + city + '</p>';
+            var html_school = '<p> <b> School: </b> ' + school + '</p>';
+            var html_studies = '<p> <b> Studies: </b> ' + studies + '</p>';
+            var html_interests = '<p> <b> Interests: </b> ' + interests + '</p>';
+
+            var DOWN_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/down-arrow.png";
+            var UP_ARROW = "https://s3.amazonaws.com/hack-mates/static/images/up-arrow.png";
+
+            var idString = "id=" + id;
+            var tempString = "<div class='col-md-4'" + ">" +
+                    "<div class='panel panel-default panel-cus center-block' onclick='changeArrow(" +
+                    id + ")'" + idString + ">" +
+                    "<div class='custom-panel center-block' data-toggle='collapse'" +
+                    "data-target='#lower" + id + "'>" +
+                    "<img src ='" + imagesrc + "' class='img-responsive center-block user-image'>" +
+                    "<div class = 'carousel-caption'>" + "<h1>" +
+                    first_name + "</h1>"
+                    + '<img src = "' + DOWN_ARROW
+                    + '" class="img-responsive center-block arrow-image" id ="arrow'
+                    + id + '">'
+                    + "</div>" + "</div>" +
+                    "<div id = 'lower" + id + "' class = 'collapse' style='padding:15px;'>" +
+                    html_hackathons + html_about + html_city + html_school + html_studies + html_interests +
+                    '<button class = "btn btn-primary big-register center-block" id = "' + username +
+                    '"' + ' data-toggle="modal" data-target="#myModal"' +
+                    ' onclick="showFunction(this.id);"> Team Up </button>' +
+                    "</div>" + "</div>" + "</div>";
+
+            var newFeature = document.createElement('div');
+            newFeature.innerHTML = tempString;
+
+            if (count > 5) {
+                newFeature.setAttribute('style', 'display:none;');
+                newFeature.className = 'hiding';
+            }
+
+            if (count % 3 === 0) {
+                var newRow = document.createElement('div');
+                newRow.className = 'row';
+                users_panel.appendChild(newRow);
+                newRow.appendChild(newFeature);
+                oldRow = newRow;
+            }
+            else {
+                oldRow.appendChild(newFeature);
+            }
+            count++;
+        {% endfor %}
+
+    }
+
+</script>

@@ -1,0 +1,125 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Avenir Next', Lato, Arial, sans-serif;
+}
+
+/* two main colors*/
+.hred {
+    color: #C21C31;
+    font-family: 'Avenir Next', Lato, Arial, sans-serif !important;
+    font-weight: bold;
+
+}
+
+.hgreen {
+    color: #589E07;
+    font-family: 'Avenir Next', Lato, Arial, sans-serif !important;
+    font-weight: bold;
+}
+
+/* for main page tab */
+.main-page {
+    background-image: url("../../images/background2.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.opaque {
+    background-color: rgba(128, 128, 128, 0.09);
+}
+
+img.logos {
+    position: relative;
+    height: auto;
+    width: auto;
+    max-width: 40%;
+    max-height: 40%;
+}
+
+.container-table {
+    display: table;
+    height: 100%;
+}
+
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+    padding-bottom: 3%;
+}
+
+.title {
+    font-size: 10vmin;
+}
+
+.subtitle {
+    font-size: 3.5vmin;
+    color: white;
+}
+
+.about {
+    padding-top: 10%;
+    padding-bottom: 5%;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    display:block;
+    height: 100%;
+}
+
+.intro-paragraph {
+    font-size: 3vmin;
+    text-align: left;
+}
+
+.panel-title {
+    font-size: 3vmin;
+}
+
+.hp-title {
+    font-size: 5vmin;
+    text-align: center;
+
+}
+
+.img-circle {
+    max-width: 50vmin;
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
+.team {
+    padding-top: 5%;
+    text-align: center;
+}
+
+.team a {
+    color: green;
+}
+
+.profName {
+    font-size: 4vmin;
+    font-weight: bold;
+}
+
+.profTitle {
+    font-size: 3.5vmin;
+    font-weight: bold;
+}
+
+.profParagraph {
+    /*font-size: 3vmin;*/
+    font-size: 2.6vmin;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+
+
+

@@ -1,0 +1,115 @@
+.web-panels {
+    padding: 3% 3% 3% 3%;
+}
+
+.tutorials {
+    padding-top: 10%;
+}
+
+/* Box customizations */
+.tut-pa:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.tut-pa {
+    font-size: 3vmin;
+}
+
+.tut-pa {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: #b3b3b3;
+}
+
+.custom-panel {
+    position: relative;
+    overflow: hidden;
+    min-height:250px;
+    max-height: 250px;
+    max-width: 250px;
+    width: 100%;
+}
+
+.panel-cus {
+    cursor: pointer;
+    cursor: hand;
+    max-width: 250px;
+}
+
+
+.custom-panel .user-image {
+    /*min-height: 280px;*/
+    width: auto;
+
+}
+
+.custom-panel .carousel-caption {
+    top: 80%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding-top: 0;
+    margin: 0 auto;
+    margin-top: 0;
+    text-align: center;
+    -webkit-transition: all 0.3s linear;
+    /*-moz-transition:all 0.3s ease-in-out;*/
+    /*-o-transition:all 0.3s ease-in-out;*/
+    /*-ms-transition:all 0.3s ease-in-out;*/
+    /*transition:all 0.3s ease-in-out;*/
+    height: 150px;
+
+}
+
+.custom-panel .carousel-caption h1 {
+    font-size: 4.5vmin;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    margin-top: 0;
+}
+
+.custom-panel .carousel-caption p {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.custom-panel:hover .carousel-caption {
+    opacity: 1;
+    transform: translateY(-35px);
+    -webkit-transform: translateY(-35px);
+    -moz-transform: translateY(-35px);
+    -ms-transform: translateY(-35px);
+    -o-transform: translateY(-35px);
+}
+
+.arrow-image {
+    padding-top: 8px;
+    width: 4vmin;
+}
+
+.hacks-panels .carousel-caption {
+    top: 65%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding-top: 0;
+    margin: 0 auto;
+    margin-top: 0;
+    text-align: center;
+    -webkit-transition: all 0.3s linear;
+    /*-moz-transition:all 0.3s ease-in-out;*/
+    /*-o-transition:all 0.3s ease-in-out;*/
+    /*-ms-transition:all 0.3s ease-in-out;*/
+    /*transition:all 0.3s ease-in-out;*/
+    height: 150px;
+}
+
+

@@ -1,0 +1,36 @@
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 15px;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.soon {
+    font-size: 3vmin;
+    text-align: center;
+}
+
+.fa-heart-o {
+    color: lightcoral;
+}
+
+.sign-up {
+    font-size: 3vmin;
+    padding: 2vmin;
+    font-family: 'Avenir Next', serif;
+    text-align: center;
+}
+
+.someIcons {
+    text-align: center;
+
+}
+
+form {
+
+		margin: 0 auto;
+		width: 50%;
+}

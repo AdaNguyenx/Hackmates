@@ -1,0 +1,11 @@
+.highlight pre {
+    font-size: 2vmin;
+    height: 70vh;
+    overflow: scroll;
+}
+
+.highlight pre span {
+    cursor: pointer;
+    cursor: hand;
+
+}

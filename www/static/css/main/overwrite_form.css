@@ -1,0 +1,22 @@
+.overwrite-base {
+    padding-top: 60px;
+     font-family: "Avenir Next"!important;
+    text-align: center;
+}
+
+.form-login {
+    margin: 0 auto !important;
+}
+
+.buttonHolder {
+    width:100%;
+    text-align: center;
+}
+
+
+
+.buttonInside {
+    margin:5px !important;
+    display:inline-block;
+}
+

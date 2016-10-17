@@ -1,0 +1,93 @@
+{% load bootstrap %}
+{% load account %}
+{% load notification_tags %}
+{% load static from staticfiles %}
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+
+    <div class="navbar-header pull-left">
+        <a href="/" class="navbar-brand">
+            <img class="fulllogo" src="{% static 'images/hackmates_login.png' %}">
+        </a>
+    </div>
+
+    <div class="pull-right navbar-brand ">
+        <a href="{% url 'account_logout' %}">
+            <span class="glyphicon glyphicon-log-out"></span>
+        </a>
+    </div>
+
+    <div class="dropdown pull-right navbar-brand " id="notifications-dropdown">
+
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+           aria-expanded="false">
+
+            <span class="glyphicon glyphicon-bell"></span>
+
+            <span class="badge badge-notify"></span>
+
+            <span class="caret"></span></a>
+        <ul class="dropdown-menu c-notifications-box" onclick=" event.stopPropagation();">
+            {% user_notifications for box %}
+        </ul>
+    </div>
+
+    <div class="pull-right navbar-brand">
+        <a href="/accounts/profile">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+
+</nav>
+
+<script>
+    $(document).ready(function updateNotifications() {
+        {# Get the number of notifications for the button #}
+        var number_notifications = $("li[class*='notification']").length;
+
+        if (number_notifications) {
+            $('.badge-notify').html(number_notifications);
+        }
+    });
+
+
+    // Update a notification using AJAX.
+    $(document).ready(function updateNotificationsC() {
+
+        var $notification_box = $('.c-notifications-box');
+        var child_box = $notification_box.children().first();
+        var flag = child_box.attr('data-nf-id') || '1';
+
+        if (!flag || $notification_box.length == 0) {
+            console.log('Notity improperly configured. No data-nf-id was found.');
+            console.log('  Make sure you have a container element with \'' + nfBoxListClassSelector + '\' as css class.');
+            return;
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/notifications/api/update/' + '?flag=' + flag,
+
+            success: function (response) {
+
+                var notifications = response.notifications;
+                $.each(notifications, function (i, notification) {
+                    $notification_box.find("b").remove();
+                    $notification_box.prepend(notification.html);
+                });
+
+                var number_notifications = $("li[class*='notification']").length;
+
+                if (number_notifications) {
+                    $('.badge-notify').html(number_notifications);
+                }
+            },
+            complete: function () {
+                setTimeout(updateNotificationsC, 5000);
+            }
+        });
+    });
+
+
+</script>

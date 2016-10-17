@@ -1,0 +1,111 @@
+{% load bootstrap %}
+{% load jsonify %}
+{% load static from staticfiles %}
+
+{# Button #}
+<button type="submit" data-toggle="modal" data-target=".createATeam"
+        class="btn btn-primary btn-lg big-register center-block">
+    Create a Team
+</button>
+
+{# Modals #}
+{% include 'home/index-logged-in/team/hackmates-teamTab-createATeamModal.html' %}
+{% include 'home/index-logged-in/team/hackmates-teamTab-sendTeamMessageModal.html' %}
+{% include 'home/index-logged-in/team/hackmates-teamTab-removeAUserModal.html' %}
+
+{# Panels of people in team #}
+<div id="userTeamPanel"></div>
+
+{# Scripts #}
+{#   Script to create dynamic panels of all team members     #}
+<script src="{% static 'js/hackmates-teamPanels.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    var userTeamPanel = document.getElementById("userTeamPanel");
+    var teammember_id = 0;
+
+    var STATIC_URL = "{% static '' %}";
+
+    {% for user_teammember in user_teams %}
+        var team_id = '{{ user_teammember.team.id }}';
+        var user_team = '{{ user_teammember.team }}'
+                + ' (' + '{{ user_teammember.team.hackathon }}' + ')';
+        var teamName = document.createElement('div');
+        teamName.setAttribute('id', team_id);
+        teamName.innerHTML = '<h3>' + user_team + '<div class = "btn btn-primary big-register sendTeamButton" ' +
+                'style = "margin-left:1%; margin-bottom:3%; margin-top:3%;">'
+                + 'Start a Conversation </div>' + '<span href="#" class="glyphicon glyphicon-question-sign tooltip-test" data-toggle="tooltip" data-placement="right" title="" style="margin-left:5px;font-size:20px;" data-original-title="Send an email to everyone on the team"></span>' + '</h3>';
+
+        userTeamPanel.appendChild(teamName);
+
+        var teammember_count = 0;
+        var teammember_oldRow = document.createElement('div');
+        teammember_oldRow.className = 'row';
+
+
+        {% for teammember in user_teammember.team.teammember_set.all %}
+            teammember_id += 1;
+            var teammember_username = '{{ teammember.user.username }}';
+
+            var teammember_first_name = '{{ teammember.user.first_name }}';
+
+            var teammember_imagesrc = STATIC_URL + '../media/{{ teammember.user.userprofile.avatar}}';
+            var teammember_hackathons = [];
+            var teammember_languages = [];
+            var teammember_roles = [];
+
+            {% if not teammember.user.userprofile.hackathons.all %}
+                teammember_hackathons.push('None yet :(');
+            {% else %}
+                {% for hackathon in  teammember.user.userprofile.hackathons.all%}
+                    teammember_hackathons.push('{{ hackathon }}');
+                {% endfor %}
+            {% endif %}
+
+            {% if not teammember.user.userprofile.languages.all %}
+                teammember_languages.push('None');
+            {% else %}
+                {% for  language in  teammember.user.userprofile.languages.all%}
+                    teammember_languages.push('{{ language }}');
+                {% endfor %}
+            {% endif %}
+
+            {% if not teammember.user.userprofile.roles.all %}
+                teammember_roles.push('Other');
+            {% else %}
+                {% for  role in  teammember.user.userprofile.roles.all%}
+                    teammember_roles.push('{{ role }}');
+                {% endfor %}
+            {% endif %}
+
+            var teammember_frameworks = '{{ teammember.user.userprofile.frameworks | linebreaksbr }}';
+            var teammember_ideas = '{{ teammember.user.userprofile.ideas | linebreaksbr }}';
+            var teammember_about = '{{ teammember.user.userprofile.about | linebreaksbr }}';
+            var teammember_city = '{{ teammember.user.userprofile.city }}';
+            var teammember_school = '{{ teammember.user.userprofile.school }}';
+            var teammember_studies = '{{ teammember.user.userprofile.studies }}';
+
+            var fb_link = '{{ teammember.user.socialaccount_set.all.0.extra_data.link }}';
+            if (fb_link) {
+                var teammember_html_fb_link = '<div class = "text-center"><a href="' + fb_link + '" target = "_blank"><i class = "fa fa-facebook-square fa-2x"' +
+                        '></i></a></div>';
+
+            }
+            else {
+                teammember_html_fb_link = '';
+            }
+            createTeamPanel();
+
+        {% endfor %}
+    {% endfor %}
+
+</script>
+
+{# Script for all the functions related to form submission #}
+<script>
+    var csrfmiddlewaretoken = '{{ csrf_token }}';
+</script>
+<script src="{% static 'js/hackmates-formsFunctions.js' %}"></script>

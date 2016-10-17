@@ -1,0 +1,25 @@
+{% load static from staticfiles %}
+{% load account %}
+{% load socialaccount %}
+{% load bootstrap %}
+
+<div class = "box">
+       <div class="content forgotBox">
+            <div class="social">
+
+             <p>Enter your username or email address:</p>
+
+            <form method="POST" action="{% url "account_reset_password" %}" class="password_reset">
+                {% csrf_token %}
+
+                <fieldset class="form-group">
+                    <p>
+                        <input id="id_email" class="form-control" name="email" size="30" type="email" />
+                    </p>
+                </fieldset>
+
+                <button class = "btn btn-primary center-block" type="submit" value="Reset My Password"> Reset My Password </button>
+            </form>
+           </div>
+        </div>
+</div>

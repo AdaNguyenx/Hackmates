@@ -1,0 +1,275 @@
+.input-mysize {
+    width: 550px
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float: none;
+    display: inline-block;
+    *display: inline; /* ie7 fix */
+    zoom: 1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align: center;
+}
+
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #E6FFF6;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media (min-width: 768px) {
+
+    .goBackArrow {
+        display: none;
+    }
+
+    .filter-hackmates {
+        display: none;
+    }
+
+    #wrapper {
+        padding-left: 200px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 200px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        min-height: 100%;
+        padding: 20px;
+        position: relative;
+    }
+
+    /*footer {*/
+    /*position:fixed;*/
+    /*}*/
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+.badge-notify {
+    background: red;
+    position: relative;
+}
+
+#hackmatesTab {
+    padding-top: 60px;
+}
+
+.nav-pills {
+    top: 10%;
+}
+
+@media (max-width: 600px) {
+    .nav-pills > li > a {
+        font-size: 20px !important;
+    }
+}
+
+#hackmatesTab .active a {
+    font-size: 25px;
+    background-color: transparent;
+    color: #31D49C;
+}
+
+#hackmatesTab a {
+    font-size: 25px;
+    color: #6F6F6F;
+}
+
+#menu-toggle {
+    margin-bottom: 3%;
+}
+
+.sidebar-nav {
+    padding-top: 50px;
+
+}
+
+.goBackArrow {
+    padding-top: 18px;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.c-notifications-box {
+    min-width: 300px;
+    text-align: center;
+    padding: 5px;
+}
+
+/*Buttons*/
+.btn-circle {
+    color: white;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
+}
+
+.big-register-outline, .big-register-outline:active, .big-register-outline:visited, .big-register-outline:focus {
+    background-image: none;
+    filter: none;
+    border-color: #31D49C !important;
+    color: #31D49C !important;
+    background-color: white !important;
+}
+
+.hackmateslogin {
+    padding-top: 20px;
+    padding-left: -15px;
+    font-size: 15px;
+}
+
+.onboardingText {
+    color:black;
+    text-align: left;
+}
+
+
+.carousel-control.left, .carousel-control.right {
+   background-image:none !important;
+   filter:none !important;
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+    color:black !important;
+}
+
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+  top: 0;
+}
+
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+  top: 0;
+}
+
+.num {
+    font-size:25px;
+}
+
+.onboardText p a {
+    color:red;
+    font-weight:bold;
+}

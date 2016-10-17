@@ -1,0 +1,77 @@
+/*CSS file for features/features.html*/
+pre {
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+}
+
+h1 {
+    font-size: 7vmin;
+    text-align: center;
+}
+
+h2 {
+    font-size: 5vmin;
+    text-align: center;
+}
+
+.tutorial-all {
+    padding-left: 3%;
+    padding-right: 3%;
+
+}
+
+.instructions {
+
+    font-size: 3vmin;
+    font-weight: 300;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.instructions li {
+    font-family: 'Avenir' !important;
+}
+
+/* Vertical navigations */
+
+.nav-tabs {
+    padding-top: 2%;
+    margin-bottom: 0;
+    border: 0;
+    font-family: 'Avenir Next';
+}
+
+.nav-tabs > li.active > a {
+    background-color: white;
+}
+
+.nav-tabs > li.active > a:hover {
+    background-color: white;
+    color: black !important;
+}
+
+.nav-tabs .active a:hover {
+    background-color: white;
+    color: black !important;
+
+}
+
+.nav-tabs > li > a {
+    color: black;
+    font-weight: bold;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    color: black;
+}
+
+.tab-content {
+    padding-top: 1%;
+}
+
+img.preview {
+    width: 75%;
+    height: 7%;
+}

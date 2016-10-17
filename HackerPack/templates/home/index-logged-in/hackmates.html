@@ -1,0 +1,78 @@
+{% load static from staticfiles %}
+{% load account %}
+{% load socialaccount %}
+{% load bootstrap %}
+
+
+{% include 'home/index-logged-in/hackmates-navbar.html' %}
+<script src="{% static 'js/hackmates-notifications.js' %}"></script>
+<div id="wrapper">
+
+
+    {% include 'home/index-logged-in/hackmates-sidebar.html' %}
+    {% include 'home/index-logged-in/hackmates-onboardingModal.html' %}
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid content-wrap-h">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills" id="hackmatesTab">
+                        <li class="active"><a data-toggle="tab" href="#hackmate">Hackmates</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#team"> My Teams </a></li>
+                        <li><a data-toggle="tab" href="#hackathon"> Hackathons </a></li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <div class="text-center onboardText"><b>
+                            <p> Hey {{ user.userprofile.first_name }}! Confused about where to start?
+                                <a href="#" data-toggle="modal" data-target="#onboardingModal">
+                                    Get onboard!
+                                </a>
+                            </p>
+                            <p>If ya provide us some <a href="https://hackerpack.typeform.com/to/AAc5E0"
+                                                        class="text-center" target="_blank">feedback</a>,
+                                our house cat will do a flip :)</p>
+                        </b>
+                        </div>
+                        <br>
+
+                        <div id="hackmate" class="tab-pane fade in active">
+                            {% include 'home/index-logged-in/hackmates/hackmates-hackmatesTab.html' %}
+                        </div>
+
+
+                        <div id="team" class="tab-pane fade">
+                            {% include 'home/index-logged-in/team/hackmates-teamTab.html' %}
+                        </div>
+
+                        <div id="hackathon" class="tab-pane fade">
+                            {% include 'home/index-logged-in/hackathons/hackmates-hackathonsTab.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'basic/footer.html' %}
+    </div>
+
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        if (location.hash) {
+            $('#hackmatesTab a[href="' + location.hash + '"]').tab('show');
+        }
+        $(document.body).on("click", "a[data-toggle]", function (event) {
+            location.hash = this.getAttribute("href");
+        });
+    });
+    $(window).on('popstate', function () {
+        var anchor = location.hash || $("a[data-toggle=tab]").first().attr("num-tab");
+        $('#hackmatesTab a[href="' + anchor + '"]').tab('show');
+    });
+</script>

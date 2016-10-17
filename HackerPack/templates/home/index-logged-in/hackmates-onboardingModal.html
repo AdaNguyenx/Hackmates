@@ -1,0 +1,107 @@
+{% load static from staticfiles %}
+
+
+<div class="modal fade" id="onboardingModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center"> Welcome to HackMates! </h4>
+            </div>
+            <div class="modal-body center-block">
+
+                <div id="myCarousel" class="carousel slide" data-ride="carousel"
+                     data-interval="false">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                        <li data-target="#myCarousel" data-slide-to="4"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <h4 class="text-center"> <span class = "num">&#10122;</span> Join a hackathon </h4>
+{#                            <ul>#}
+{#                                <li class="onboardingText"> Go to the Hackathons tab</li>#}
+{#                                <li class="onboardingText"> Browse hackathons and click on#}
+{#                                    the checkbox to indicate the ones you are going to#}
+{#                                </li>#}
+{#                                <li class="onboardingText"> If you do not see your hackathons,#}
+{#                                    submit the form at the bottom of the page to request the hackathons to be added!#}
+{#                                </li>#}
+{#                            </ul>#}
+                            <img src="{% static 'images/onboarding/joinahackathon.gif' %}" alt="Join a Hackathon">
+                        </div>
+
+                        <div class="item">
+                            <h4 class = "text-center"> <span class = "num">&#10123;</span> Create a team </h4>
+{#                            <ul>#}
+{#                                <li class="onboardingText"> Go to the Teams tab</li>#}
+{#                                <li class="onboardingText"> Create a team with descriptive name and description</li>#}
+{#                            </ul>#}
+                            <img src="{% static 'images/onboarding/createateam.gif' %}" alt="Create a team">
+                        </div>
+
+                        <div class="item">
+                            <h4 class="text-center"> <span class = "num">&#10124;</span> Team up with Hackmates </h4>
+                            <ul>
+{#                                <li class="onboardingText"> After creating a team, go to HackMates tab to find#}
+{#                                    hackmates you can team up with#}
+{#                                </li>#}
+                                <li class="onboardingText"> On Hackmates tab, you can <b>browse</b>
+                                    through the list of Hackmates, or
+                                    <b> use the filter </b> to find the people with skills you are looking for.
+                                </li>
+                            </ul>
+                            <img src="{% static 'images/onboarding/findteammates.gif' %}" alt="Find teammates">
+                        </div>
+
+                        <div class="item">
+                            <h4 class="text-center"> <span class = "num">&#10125;</span> Connecting with your teammates </h4>
+                            <ul>
+{#                                <li class="onboardingText"> After the people you invited accept your request,#}
+{#                                    you will receive a notification and find them on your team#}
+{#                                </li>#}
+{#                                <li class="onboardingText"> When you click on "Start a conversation",#}
+{#                                    an email will be sent out to everyone on the team so you can start connecting#}
+{#                                </li>#}
+                                <li class="onboardingText"> Be sure to change your email to one you use
+                                    <b>frequently</b> so that you won't miss any messages! </li>
+                            </ul>
+
+                            <img src="{% static 'images/onboarding/connectwteammates.gif' %}"
+                                 alt="Connecting with teammates">
+
+                        </div>
+
+                        <div class="item">
+                            <h4 class="text-center"> <span class = "num">&#10126;</span> Changing teams </h4>
+                            <ul>
+                                <li class="onboardingText"> You can remove yourself or other people from a team.
+                                </li>
+
+                            </ul>
+                            <img src="{% static 'images/onboarding/removeteammates.gif' %}" alt="Changing teams">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

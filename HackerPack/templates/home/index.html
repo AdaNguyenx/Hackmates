@@ -1,0 +1,21 @@
+{% extends 'basic/base.html' %}
+{% load static from staticfiles %}
+{% load account %}
+{% load socialaccount %}
+{% load bootstrap %}
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {% include 'home/index-logged-in/hackmates.html' %}
+    {% else %}
+        {% include 'home/index-logged-out/index-header.html' %}
+        {% include 'home/index-logged-out/index-allModal.html' %}
+        {% include 'home/index-logged-out/index-hackmates.html' %}
+        {% include 'basic/footer.html' %}
+    {% endif %}
+
+
+{% endblock %}
+

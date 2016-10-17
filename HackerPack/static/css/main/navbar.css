@@ -1,0 +1,37 @@
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: black;
+}
+
+.navbar {
+    background-color: black !important;
+    font-family: 'Avenir Next', Lato, Arial, sans-serif !important;
+}
+
+.navbar-brand a {
+    color: black !important;
+}
+
+.navbar-brand a:hover {
+    text-decoration: none;
+    color: #31D49C !important;
+}
+
+.navbar-brand a:visited, .navbar-brand a:focus {
+    text-decoration: none;
+}
+
+.navbar-brand a span:hover {
+    color: #31D49C;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+@media (max-width: 320px) {
+    .navbar-brand a span {
+        font-size: 15px !important;
+    }
+}
+

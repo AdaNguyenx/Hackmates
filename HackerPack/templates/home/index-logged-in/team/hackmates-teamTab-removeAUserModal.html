@@ -1,0 +1,40 @@
+<!-- Modal to remove a user -->
+<div class="modal fade" id="removeUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Are you sure you would like to remove this HackMate from the
+                    team? </h4>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel</button>
+                <button type="button" class="btn btn-danger removeTheHackMateButton"> Remove this HackMate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to send success message that user is removed -->
+<div class="modal fade" id="removeUserSuccessModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Successfully removed user </h4>
+            </div>
+            <div class="modal-body">
+                <b><span class="thisIsSuccessRemoveUser"></span></b> has been successfully removed from team
+                <b><span class="thisIsSuccessRemoveTeam"></span></b>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{% load static from staticfiles %}
+
+<header class="intro-header">
+    <div class="container">
+        <div class="head-header">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                    {#                    <img src = "../../static/images/hackmates.png">#}
+                    <img src="{% static 'images/hackmates.png' %}">
+                    <a class="btn btn-primary big-login pull-right" data-toggle="modal" href="javascript:void(0)"
+                       onclick="openLoginModal();"> Log in </a>
+                    <p style="color:white; padding-left:100px;"> by <a class = "hackerpacklink" href="http://hackerpack.io" target="_blank"><span
+                            class="hred">Hacker</span><span class="hgreen">Pack</span></a></p>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Find Your Hacking Mates</h1>
+                    <span class="subheading">Form a team, find mentors, and start building cool things.</span>
+                    <a class="btn btn-primary btn-lg big-register" data-toggle="modal" href="javascript:void(0)"
+                       onclick="openRegisterModal();"> Sign Up Now </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

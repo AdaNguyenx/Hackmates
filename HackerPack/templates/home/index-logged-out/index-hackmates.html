@@ -1,0 +1,80 @@
+{% load static from staticfiles %}
+{% load jsonify %}
+
+<div class="hp-title"> HackMates</div>
+
+<div class="container indexbody">
+    <div class="hackathons" id="users-panel">
+    </div>
+    <button class="btn btn-primary center-block btn-lg big-register" id="load"> See More HackMates</button>
+    <hr>
+</div>
+
+<script src="{% static 'js/userModal.js' %}"></script>
+<script src="{% static 'js/userPanel.js' %}"></script>
+
+<script>
+
+    var num = {{ count }};
+    {% for user in users %}
+
+        var username = '{{ user.username }}';
+        var id = {{ user.id }};
+        var first_name = '{{ user.first_name }}';
+
+        var imagesrc = '/../media/{{ user.userprofile.avatar}}';
+        var hackathons = [];
+        var languages = [];
+        var roles = [];
+
+        {% if not user.userprofile.hackathons.all %}
+            hackathons.push('None yet :(');
+        {% else %}
+            {% for hackathon in  user.userprofile.hackathons.all%}
+                hackathons.push('{{ hackathon }}');
+            {% endfor %}
+        {% endif %}
+
+        {% if not user.userprofile.languages.all %}
+            languages.push('None');
+        {% else %}
+            {% for  language in  user.userprofile.languages.all%}
+                languages.push('{{ language }}');
+            {% endfor %}
+        {% endif %}
+
+        {% if not user.userprofile.roles.all %}
+            roles.push('Other');
+        {% else %}
+            {% for  role in  user.userprofile.roles.all%}
+                roles.push('{{ role }}');
+            {% endfor %}
+        {% endif %}
+
+        var frameworks = '{{ user.userprofile.frameworks | linebreaksbr }}';
+        var ideas = '{{ user.userprofile.ideas | linebreaksbr }}';
+        var about = '{{ user.userprofile.about | linebreaksbr }}';
+        var city = '{{ user.userprofile.city }}';
+        var school = '{{ user.userprofile.school }}';
+        var studies = '{{ user.userprofile.studies }}';
+
+        {% if not user.userprofile.platform_choices %}
+            var interests = 'None';
+        {% else %}
+            interests = {{ user.userprofile.platform_choices | jsonify}};
+        {% endif %}
+
+        var html_frameworks = '<p> <b> Frameworks: </b> ' + frameworks + '</p>';
+        var html_ideas = '<p> <b> Hackthon Ideas: </b> ' + ideas + '</p>';
+        var html_languages = '<p> <b> Languages: </b> ' + languages.toString() + '</p>';
+        var html_roles = '<p> <b> Roles: </b> ' + roles.toString() + '</p>';
+        var html_hackathons = '<p> <b> Going to: </b> ' + hackathons.toString() + '</p>';
+        var html_about = '<p> <b> About: </b> ' + about + '</p>';
+        var html_city = '<p> <b> Location: </b> ' + city + '</p>';
+        var html_school = '<p> <b> School: </b> ' + school + '</p>';
+        var html_studies = '<p> <b> Studies: </b> ' + studies + '</p>';
+        var html_interests = '<p> <b> Interests: </b> ' + interests + '</p>';
+
+        createPanel();
+    {% endfor %}
+</script>

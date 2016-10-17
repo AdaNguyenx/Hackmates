@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load jsonify %}
+
+{% load static from staticfiles %}
+
+
+<li data-nf-id="{{ notification.id }}" id="nf-{{ notification.id }}"
+    class="notification list-group-item {{ notification.read|yesno:'read,unread' }}">
+
+
+    {% block notification %}
+
+        {% if notification.target %}
+            {{ notification.actor.first_name }} {{ notification.actor.last_name }}
+            {% blocktrans with actor_url=notification.actor_url actor=notification.actor verb=notification.verb target=notification.target target_url=notification.target_url %}
+                {{ verb }} on
+                <a href="{{ target_url }}">{{ target }}</a>
+            {% endblocktrans %}
+        {% else %}
+            {{ notification.actor.first_name }} {{ notification.actor.last_name }}
+            {% blocktrans with actor_url=notification.actor_url actor=notification.actor verb=notification.verb %}
+                {{ verb }}
+            {% endblocktrans %}
+        {% endif %}
+
+
+        <span class="timesince">
+            {% blocktrans with created=notification.created|timesince %}
+                {{ created }} ago
+            {% endblocktrans %}
+        </span>
+    {% endblock notification %}
+
+    <button class="delete-notification btn big-register-outline"
+            data-id="{{ notification.id }}">
+        x
+    </button>
+</li>
+

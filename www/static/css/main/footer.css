@@ -1,0 +1,58 @@
+/* Footer */
+/*footer {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*width: 100%;*/
+    /*background: #222222;*/
+    /*color: #ffffff;*/
+    /*padding: 10px 0 10px 0;*/
+/*}*/
+
+/*footer .fnav {*/
+    /*vertical-align: middle;*/
+/*}*/
+
+/*ul.footer-social li {*/
+    /*display: inline-block;*/
+    /*margin-right: 10px;*/
+/*}*/
+
+/*footer p {*/
+    /*font-size: 12px;*/
+    /*margin-top: 10px;*/
+/*}*/
+
+/*footer i.fa {*/
+    /*height: 30px;*/
+    /*width: 30px;*/
+    /*border: 2px solid #8c8c8c;*/
+    /*font-size: 20px;*/
+    /*padding: 4px 5px;*/
+    /*border-radius: 50%;*/
+    /*color: #8c8c8c;*/
+    /*transition: all 0.5s;*/
+/*}*/
+
+/*footer i.fa:hover {*/
+    /*background: #FCAC45;*/
+    /*border-color: #FCAC45;*/
+    /*color: #ffffff;*/
+/*}*/
+
+/*#footer {*/
+    /*position: relative;*/
+    /*margin-top: -180px; !* negative value of footer height *!*/
+    /*height: 180px;*/
+    /*clear: both;*/
+/*}*/
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+

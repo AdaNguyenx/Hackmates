@@ -1,0 +1,65 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block head_title %}{% endblock head_title %}</title>
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"
+          type="image/x-icon"/>
+
+    {% include 'basic/css.html' %}
+
+    <link rel="stylesheet"
+          href="{% static 'external/font-awesome/css/font-awesome.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'css/main/login.css' %}"/>
+
+</head>
+<body>
+
+{#{% load url from future %}#}
+{#{% load socialaccount %}#}
+
+
+{#<a href="{% provider_login_url 'facebook' method='oauth2' %}">#}
+{#    Sign up with Facebook!#}
+{#</a>#}
+
+{% if user.is_authenticated %}
+    {% include 'home/index-logged-in/hackmates-navbar.html' %}
+    <script>
+        var csrfmiddlewaretoken = '{{ csrf_token }}';
+    </script>
+    <script src="{% static 'js/hackmates-notifications.js' %}"></script>
+
+{% endif %}
+
+<div class="overwrite-base">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <div class="center-block">
+                    {% block body %}
+                        {% block content %}
+                        {% endblock content %}
+                    {% endblock body %}
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+</div>
+{% block extra_body %}{% endblock extra_body %}
+
+{% include 'basic/js.html' %}
+</body>
+</html>
