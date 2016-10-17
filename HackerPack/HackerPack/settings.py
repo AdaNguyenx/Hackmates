@@ -2,16 +2,14 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = '5ftn)xd^s7cv4lem2dvy3z2)0_203bu-=ekf%vnfwuk__^eaqq'
+SECRET_KEY = 'INSERT HERE'
 
-DEBUG = False
-
-# When in production mode, these need to be defined
+DEBUG = True
 
 ALLOWED_HOSTS = [
 	'.localhost',
 	'127.0.0.1',
-	'hackmates.io',
+	'hackmates.io'
 ]
 
 INSTALLED_APPS = [
@@ -120,23 +118,13 @@ if 'RDS_DB_NAME' in os.environ:
 		}
 	}
 else:
-	# DATABASES = {
-	# 	'default': {
-	# 		'ENGINE': 'django.db.backends.sqlite3',
-	# 		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-	# 	}
-	# }
-
 	DATABASES = {
 		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
-			'HOST': 'hack-mates.cdfklbzzmvda.us-east-1.rds.amazonaws.com',
-			'NAME': 'hack_mates',
-			'USER': 'supersaiyan',
-			'PASSWORD': 'hackerpackislove',
-			'PORT': '5432',
+			'ENGINE': 'django.db.backends.sqlite3',
+			'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 		}
 	}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -238,58 +226,15 @@ STATICFILES_DIRS = [
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Actually sends it to the server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'jaime5'
-EMAIL_HOST_PASSWORD = 'hackerpackislove1'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
+# INSERT YOUR CUSTOM EMAIL HOST HERE
 
 DEFAULT_FROM_EMAIL = "hello@hackerpack.io"
 
-# Production:
-if not DEBUG:
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
-	# Informs browser that caching of page is possible
-	AWS_HEADERS = {
-		'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-		'Cache-Control': 'max-age=94608000',
-	}
-
-	AWS_STORAGE_BUCKET_NAME = 'hack-mates'
-	AWS_ACCESS_KEY_ID = 'AKIAIRHX2BPC5U4S6ODA'
-	AWS_SECRET_ACCESS_KEY = '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'
-
-	# Tell django-storages that when coming up with the URL for an item in S3 storage
-	# NOTE: Keep it simple - just use this domain plus the path.
-	# NOTE: If this isn't set, things get complicated
-
-	# Control how the `static` template tag from `staticfiles` gets expanded
-	AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-	STATICFILES_LOCATION = 'static'
-	STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-	STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-
-	# This is used by the `static` template tag from `static`
-	# In anycase, this refers directly to STATIC_URL, hence safe to always set
-
-	# STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-
-	# Tell the staticfiles app to use S3Boto storage when writing the collected
-	# static files (when you run `collectstatic`)
-	# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-	MEDIAFILES_LOCATION = 'media'
-	MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-	DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-
-# Development
-else:
-
-	STATIC_URL = '/static/'
-	MEDIA_URL = '/media/'
-
-	STATICFILES_FINDERS = (
-		'django.contrib.staticfiles.finders.FileSystemFinder',
-		'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-	)
+STATICFILES_FINDERS = (
+	'django.contrib.staticfiles.finders.FileSystemFinder',
+	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
